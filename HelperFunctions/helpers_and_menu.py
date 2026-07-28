@@ -1,20 +1,58 @@
-from safe_input import safe_input
+from HelperFunctions.safe_input import safe_input
+
+
+"""
+Available functions:
+    _is_falsy(): bool
+    _is_truthy(): bool
+    _cls(): None
+    _generate_dashes(): str
+    _menu(): str | None
+    _apply_discount(): float
+    _validate_email(): bool
+"""
+
 
 def _is_falsy(variable=None) -> bool:
     """
     Helper
     Check if the argument is None, or Falsey
+
+    Args:
+        variable: Value to check.
+
+    Returns:
+        bool: Is the value None or Falsy (True) or not (False)
     """
     if not variable:
         return True
     else:
         return False
 
+def _is_truthy(variable=None) -> bool:
+    """
+    Helper
+    Check if the argument is True or Truthy
 
-def _cls():
+    Args:
+        variable: Value to check.
+
+    Returns:
+        bool: Is the value Truthy (True) or not (False).
+    """
+    if variable:
+        return True
+    else:
+        return False
+
+
+def _cls() -> None:
     """
     Helper
     Clear the console screen.
+
+    Returns:
+        None
     """
     print("\033[H\033[J", end="")
     return
@@ -104,3 +142,32 @@ def _menu(header: str = "Menu", items: list = []) -> str | None:
         return name
 
 
+def _apply_discount(number:float=0, discount:float=None):
+    """
+    Helper
+    Apply a discount percentage to a starting number.
+
+    Args:
+        number (float): The number to apply discount to.
+        discount (float): The discount as a positive percentage.
+
+    Returns:
+        float: The discounted value
+    """
+    if discount <= 0:
+        return number
+    return number - (number * (discount / 100))
+
+
+def _validate_email(email:str="") -> bool:
+    """
+    Helper
+    Check if email is valid.
+
+    Args:
+        email (str): The string to check.
+
+    Returns:
+        bool: Is the string a valid email.
+    """
+    return "@" in email and "." in email
