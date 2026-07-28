@@ -1,4 +1,4 @@
-from HelperFunctions.safe_input import safe_input
+from safe_input import safe_input
 
 
 """
