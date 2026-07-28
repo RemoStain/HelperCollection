@@ -6,9 +6,11 @@ import time
 def log_exception(e: Exception, verbose: bool = False) -> None:
     """
     Logs the exception with a full traceback and a nicely formatted explanation.
+
     Args:
         e (Exception): The exception to log.
         verbose (bool): If True, logs the full traceback and explanation. If False, logs only the explanation.
+
     Returns:
         None
     """
@@ -33,14 +35,14 @@ def log_exception(e: Exception, verbose: bool = False) -> None:
         logging.error("Traceback (most recent call last):\n%s", traceback.format_exc())
 
         # Write the explanation of the exception to the log file
-        with open("traceback.txt", "a") as f:
+        with open("log.txt", "a") as f:
             f.write(
                 f"At {time_} an exception of type {type(e).__name__} occurred. Arguments:\n{e.args}\n"
             )
             f.write(f"Traceback (most recent call last):\n{traceback.format_exc()}\n")
             f.write("\n" + "-" * 25 + "\n")
 
-        print("Exception logged to traceback.txt\n\n")
+        print("Exception logged to log.txt\n\n")
 
     else:
         # Log only the explanation
