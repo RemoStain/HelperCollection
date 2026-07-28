@@ -75,10 +75,8 @@ def describe_math_constant(constant: str) -> str:
     return math_descriptions[constant]
 
 
-
-
-
 # ----- Basic Math Functions -----
+
 # add as many numbers as are given
 def add_all(*nums: int | float, type_: type = None) -> int | float:
     """
@@ -215,7 +213,6 @@ def exp_all(*nums: int | float, type_: type = None) -> int | float:
 
 # ----- Fractions Functions -----
 
-
 # simplify fractions
 def reduce_fraction(numerator: int, denominator: int):
     """
@@ -270,7 +267,6 @@ def decimal_to_frac(num: float) -> tuple[int | float, int | float]:
 
 # ----- Rounding Functions -----
 
-
 # round to given decimal and retain type
 # option to force round up or down
 def rounding(
@@ -320,7 +316,6 @@ def rounding(
 
 # ----- Root Functions -----
 
-
 # root
 def sq_root(num: int | float, root: int | float = 2, type_: type = None) -> int | float:
     """
@@ -346,7 +341,7 @@ def sq_root(num: int | float, root: int | float = 2, type_: type = None) -> int 
 
 
 # root x of num
-def root(num: int | float, x: int | float, type_: type = None) -> int | float:
+def root_n(num: int | float, x: int | float, type_: type = None) -> int | float:
     """
     Calculate the x-th root of a number and return the result as the type of the number.
 
@@ -367,7 +362,6 @@ def root(num: int | float, x: int | float, type_: type = None) -> int | float:
         raise ValueError("Cannot calculate root of zero.")
     t = num ** (1 / x)
     return type_(t)
-
 
 
 
@@ -598,32 +592,79 @@ class TrigFunctions:
 
 if __name__ == "__main__":
 
-    # print(add_all(5.1, 10.1, 1.1, type_=int))
-    # print(add_all(5.1, 10.1, 1.1, type_=float))
-    # print(add_all(5, 10.8999999, 1.1))
+    print("Math Functions Test")
+    print("\nAdding")
+    print(add_all(5.1, 10.1, 1.1, type_=int))
+    print(add_all(5.1, 10.1, 1.1, type_=float))
+    print(add_all(5, 10.8999999, 1.1))
 
-    # print(sub_all(100.1, 10.1, 1.1, type_=int))
-    # print(sub_all(100.1, 10.1, 1.1, type_=float))
-    # print(sub_all(100.1, 10.1, 1.1))
+    print("\nSubtracting")
+    print(sub_all(100.1, 10.1, 1.1, type_=int))
+    print(sub_all(100.1, 10.1, 1.1, type_=float))
+    print(sub_all(100.1, 10.1, 1.1))
 
-    # print(mult_all(2.1, 10.1, 1.1, type_=int))
-    # print(mult_all(2.1, 10.1, 1.1, type_=float))
-    # print(mult_all(2.1, 10.1, 1.1))
+    print("\nMultiplying")
+    print(mult_all(2.1, 10.1, 1.1, type_=int))
+    print(mult_all(2.1, 10.1, 1.1, type_=float))
+    print(mult_all(2.1, 10.1, 1.1))
 
-    # print(div_all(100.1, 10, 1, type_=int))
-    # print(div_all(100.1, 10, 1, type_=float))
-    # print(div_all(100.1, 10, 1, type_=float, floor=True))
+    print("\nDividing")
+    print(div_all(100.1, 10, 1, type_=int))
+    print(div_all(100.1, 10, 1, type_=float))
+    print(div_all(100.1, 10, 1, type_=float, floor=True))
+    print(div_all(0.1, 10, 1))
+    print(div_all(100, -2, 1))
 
-    # print(div_all(0.1, 10, 1))
-    # print(div_all(100, -2, 1))
+    print("\nExponentiating")
+    print(exp_all(2, 3, 2, type_=int))
+    print(exp_all(2, 3, 2, type_=float))
 
-    # print(rounding(10.1))
-    # print(rounding(10.9))
-    # print(rounding(10.199, 2))
-    # print(rounding(10.199, 2, force="down"))
-    # print(rounding(10.199, 2, force="truedown"))
-    # print(rounding(10.1, 1, int, "up"))
+    print("\nFraction Functions Test")
+    print("\nReducing Fractions")
+    print(reduce_fraction(10, 20))
+    print(reduce_fraction(10, 1))
 
+    print("\nDecimal to Fraction")
+    print(decimal_to_frac(10.1))
+
+    print("\nRounding Functions Test\n")
+    print("Normal Rounding")
+    print(rounding(10.1))
+    print(rounding(10.9))
+    print(rounding(10.199, 2))
+
+    print("\nForced Rounding")
+    print(rounding(10.199, 2, force="down"))
+    print(rounding(10.199, 2, force="truedown"))
+    print(rounding(10.1, 1, int, "up"))
+
+    print("\nRoot Functions Test\n")
+    print("\nSquare Root")
+    print(sq_root(16))
+    print(sq_root(16, 4))
+    print(sq_root(16, 4, float))
+
+    print("\nN-th Root")
+    print(root_n(16, 4))
+
+    print("\nTrig Functions Test\n")
+    print("\nSine and Cosecant")
+    print(TrigFunctions.sin(30))
+    print(TrigFunctions.cosecant(30))
+
+    print("\nCosine and Secant")
+    print(TrigFunctions.cos(60))
+    print(TrigFunctions.secant(60))
+
+    print("\nTangent and Cotangent")
+    print(TrigFunctions.tan(45))
+    print(TrigFunctions.cotangent(45))
+
+    print("\nPythagorean Theorem")
+    print(TrigFunctions.pythagorean_theorem(3, 4))
+
+
+    print("\nConstants Test\n")
     for constant in math_constant:
         print(f"{constant}: {math_constant[constant]}")
         print(f"Description: {describe_math_constant(constant)}\n")
