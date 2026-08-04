@@ -31,6 +31,7 @@ Example structure:
 ```text
 my_project/
 ├── HelperFunctions/
+│   │    ├── tests/
 │   ├── __init__.py
 │   ├── exception_logging.py
 │   ├── help_call.py
