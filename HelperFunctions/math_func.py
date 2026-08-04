@@ -14,16 +14,12 @@ math_constant = {
     "log2e": 1.442695040888963,  # log base 2 of e
     "log10e": 0.434294481903252,  # log base 10 of e
 
-    
-
     # physical constants
     "gravitational": 9.80665,  # gravitational acceleration in m/s^2
     "elementary_charge": 1.602176634e-19,  # elementary charge in coulombs
     "planck": 6.62607015e-34,  # Planck's constant in J*s
     "light": 299792458,  # speed of light in m/s
     "e_mass": 9.10938356e-31,  # electron mass in kg
-
-
 
     #chemical constants
     "avogadro": 6.02214076e23,  # Avogadro's number
@@ -60,7 +56,6 @@ math_descriptions = {
     "faradays_constant": "Faraday's constant, the total electric charge carried by one mole of electrons. Symbol: \u0066",
     }
 
-
 # describe math constants
 def describe_math_constant(constant: str) -> str:
     """
@@ -76,7 +71,6 @@ def describe_math_constant(constant: str) -> str:
 
 
 # ----- Basic Math Functions -----
-
 # add as many numbers as are given
 def add_all(*nums: int | float, type_: type = None) -> int | float:
     """
@@ -212,7 +206,6 @@ def exp_all(*nums: int | float, type_: type = None) -> int | float:
 
 
 # ----- Fractions Functions -----
-
 # simplify fractions
 def reduce_fraction(numerator: int, denominator: int):
     """
@@ -245,7 +238,7 @@ def reduce_fraction(numerator: int, denominator: int):
 
 
 # decimal into frac using the reduce_fraction function
-def decimal_to_frac(num: float) -> tuple[int | float, int | float]:
+def decimal_to_frac(num: float) -> tuple[int, int]:
     """
     Convert a decimal number to a fraction and return the result as a tuple of (numerator, denominator).
 
@@ -253,7 +246,7 @@ def decimal_to_frac(num: float) -> tuple[int | float, int | float]:
         num: float: The decimal number to convert.
 
     Returns:
-        tuple[int | float, int | float]: The fraction as a tuple of (numerator, denominator).
+        tuple[int, int]: The fraction as a tuple of (numerator, denominator).
     """
     if not num:
         return (0, 1)
@@ -265,10 +258,44 @@ def decimal_to_frac(num: float) -> tuple[int | float, int | float]:
     return reduce_fraction(numerator, denominator)
 
 
-# ----- Rounding Functions -----
+#improper fraction to proper fraction as tuple of whole, num, and denom
+def improper_to_proper_frac(numerator:float = 0, denominator:float = 1):
+    whole = 0
+    if not denominator:
+        return 0, 0, 0
+    if numerator < denominator:
+        return whole, numerator, denominator
+    if numerator == denominator:
+        return 1, 0, 1
 
-# round to given decimal and retain type
-# option to force round up or down
+    temp_n = numerator
+    while True:
+        temp_n -= denominator
+        
+        whole += 1
+
+        numerator = temp_n
+
+        if temp_n < denominator:
+            break
+
+    return whole, numerator, denominator
+
+
+# proper to improper as tuple of num, and denom,
+def proper_to_improper_frac(whole:int=0, numerator:float = 0, denominator:float = 1):
+    if not denominator:
+        return 0, 0
+    if not whole:
+        return numerator, denominator
+    new_numerator = (whole * denominator) + numerator
+
+    return new_numerator
+
+
+
+# ----- Rounding Functions -----
+# round to given decimal and retain type ---> option to force round up or down
 def rounding(
     num: int | float, decimal: int = 0, type_: int | float = None, force: str = None
 ) -> int | float:
@@ -315,7 +342,6 @@ def rounding(
 
 
 # ----- Root Functions -----
-
 # root
 def sq_root(num: int | float, root: int | float = 2, type_: type = None) -> int | float:
     """
@@ -364,9 +390,7 @@ def root_n(num: int | float, x: int | float, type_: type = None) -> int | float:
     return type_(t)
 
 
-
 # ----- Trig Functions -----
-
 # contain all the trig functions in one class so it can self reference
 class TrigFunctions:
     """
@@ -590,8 +614,45 @@ class TrigFunctions:
         return output_type(c)
 
 
-if __name__ == "__main__":
+# ----- Misc Functions -----
+# Divide and return result as int with remainder
+def div_with_modulo(*nums:float) -> tuple[int, int]:
 
+    if not nums:
+        return 0 
+    if nums[0] == 0:
+        return 0, 0
+    if 0 in nums[1:]:
+        return 0, 0
+
+    div_result = div_all(*nums, type_ = float)
+
+    whole_num, remainder = decimal_to_frac(div_result)
+
+
+    return whole_num, remainder
+
+
+# applying discounts
+def apply_discount(number:float=0, discount:float=None) -> float:
+    """
+    Apply a discount percentage to a starting number.
+
+    Args:
+        number (float): The number to apply discount to.
+        discount (float): The discount as a positive percentage.
+
+    Returns:
+        float: The discounted value
+    """
+    if discount <= 0:
+        return number
+    return number - (number * (discount / 100))
+
+
+
+
+def tests():
     print("Math Functions Test")
     print("\nAdding")
     print(add_all(5.1, 10.1, 1.1, type_=int))
@@ -626,6 +687,17 @@ if __name__ == "__main__":
 
     print("\nDecimal to Fraction")
     print(decimal_to_frac(10.1))
+
+    print("\nProper and Improper")
+    print(improper_to_proper_frac(21, 2))
+    print(proper_to_improper_frac(10, 1, 2))
+
+    print("\nDiv with Remainder")
+    print(div_with_modulo(1, 0))
+
+    print(div_with_modulo(0, 1))
+    print(div_with_modulo(21, 10))
+
 
     print("\nRounding Functions Test\n")
     print("Normal Rounding")
@@ -663,8 +735,15 @@ if __name__ == "__main__":
     print("\nPythagorean Theorem")
     print(TrigFunctions.pythagorean_theorem(3, 4))
 
+    print("\nMisc Functions Test\n")
+    print(apply_discount(100, 15))
+
 
     print("\nConstants Test\n")
     for constant in math_constant:
         print(f"{constant}: {math_constant[constant]}")
         print(f"Description: {describe_math_constant(constant)}\n")
+
+
+if __name__ == "__main__":
+    tests()

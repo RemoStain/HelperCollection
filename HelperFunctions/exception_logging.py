@@ -53,11 +53,14 @@ def log_exception(e: Exception, verbose: bool = False) -> None:
         )
 
 
-# testing
-if __name__ == "__main__":
+def tests():
     try:
         # Generate an exception for testing
         1 / 0
     except Exception as e:
         log_exception(e, verbose=True)
         log_exception(e, verbose=False)
+
+# testing
+if __name__ == "__main__":
+    tests()

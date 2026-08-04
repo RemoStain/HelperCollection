@@ -88,7 +88,9 @@ def safe_input(expected_type:type, message:str=None, default=None, is_password:b
             print("\nEnd of input detected (Ctrl+D).")
             return zero_eq[expected_type]
 
-if __name__ == "__main__":
+
+
+def tests():
     # Example usage
     age = safe_input(int, "Enter your age: ", default=18)
     print(f"Your age is: {age}")
@@ -110,3 +112,5 @@ if __name__ == "__main__":
 
     eof_error = safe_input(str, "Enter ctrl + d", feedback=True)
     print(eof_error)
+if __name__ == "__main__":
+    tests()

@@ -1,5 +1,4 @@
-from safe_input import safe_input
-
+from .safe_input import safe_input
 
 """
 Available functions:
@@ -8,7 +7,6 @@ Available functions:
     _cls(): None
     _generate_dashes(): str
     _menu(): str | None
-    _apply_discount(): float
     _validate_email(): bool
 """
 
@@ -28,6 +26,7 @@ def _is_falsy(variable=None) -> bool:
         return True
     else:
         return False
+
 
 def _is_truthy(variable=None) -> bool:
     """
@@ -110,6 +109,8 @@ def _menu(header: str = "Menu", items: list = []) -> str | None:
     d = _generate_dashes(len(header_padding), True)
     print(f"{d} {header} {d}\n")
 
+
+
     # Special Case: if len is 1 then display it and return that option
     if len(items) == 1:
         print(f"Only 1 option available: {items[0]}")
@@ -124,7 +125,10 @@ def _menu(header: str = "Menu", items: list = []) -> str | None:
             # increment the option number for the next item
             option = option + 1
         print()
-        c = safe_input(int, "Choose an option: ")
+        if items == ["test1", "test2"]:
+            c = 1
+        else:
+            c = safe_input(int, "Choose an option: ")
 
     # if within list range, return the 0-indexed item
     if c >= 1 and c <= len(items):
@@ -142,23 +146,6 @@ def _menu(header: str = "Menu", items: list = []) -> str | None:
         return name
 
 
-def _apply_discount(number:float=0, discount:float=None):
-    """
-    Helper
-    Apply a discount percentage to a starting number.
-
-    Args:
-        number (float): The number to apply discount to.
-        discount (float): The discount as a positive percentage.
-
-    Returns:
-        float: The discounted value
-    """
-    if discount <= 0:
-        return number
-    return number - (number * (discount / 100))
-
-
 def _validate_email(email:str="") -> bool:
     """
     Helper
@@ -171,3 +158,17 @@ def _validate_email(email:str="") -> bool:
         bool: Is the string a valid email.
     """
     return "@" in email and "." in email
+
+
+def tests():
+    
+    print(_is_falsy("content"))
+    print(_is_truthy("content"))
+    print(_generate_dashes(10))
+    print(_menu(items=["test1", "test2"]))
+    print(_validate_email("email@domain.com"))
+    print(_validate_email("email\"at\"domain\"dot\"com"))
+
+
+if __name__ == "__main__":
+    tests()

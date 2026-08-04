@@ -1,7 +1,9 @@
 
+import os
+import importlib.util
 
 
-def get_function_names(filename:str="help_call.py", display:bool=False):
+def get_function_names(filename: str, display: bool = False):
     """
     Print all the python functions in a given file.
     Defaults to itself if no filename is provided.
@@ -16,6 +18,10 @@ def get_function_names(filename:str="help_call.py", display:bool=False):
     # import inside the function to avoid unnecessary imports if the function is not called
     import re
 
+    # get path from filename
+    # defaults to home directory
+    filepath = os.path.abspath(filename)
+
     # compile regex patterns for function and class definitions
     DEF_RE = re.compile(r"^\s*def\s+([A-Za-z_]\w*)\s*\(")
     CLASS_RE = re.compile(r"^\s*class\s+([A-Za-z_]\w*)\s*(?:[(:]|:)")
@@ -25,11 +31,11 @@ def get_function_names(filename:str="help_call.py", display:bool=False):
     results: list[str] = []
 
     # open the file and read it line by line
-    with open(filename, "r", encoding="utf-8") as f:
+    with open(filepath, "r", encoding="utf-8") as f:
         # iterate through each line in the file, checking for class and function definitions
         for line in f:
             m_class = CLASS_RE.match(line)
-            
+
             # if a class definition is found, update the class stack with the current class name and its indentation level
             if m_class:
                 indent_len = len(m_class.group(1).replace("\t", " "))
@@ -50,10 +56,14 @@ def get_function_names(filename:str="help_call.py", display:bool=False):
                 func_name = m_def.group(1)
 
                 # lstrip both tabs and 4 spaces, which means we have to % 4 the class_stack value
-                indent_len = len(line[:len(line) - len(line.lstrip("\t").lstrip("    "))].replace("\t", " "))
+                indent_len = len(
+                    line[: len(line) - len(line.lstrip("\t").lstrip("    "))].replace(
+                        "\t", " "
+                    )
+                )
 
                 # pop classes from the stack if their indentation level is greater than or equal to the current function's indentation level
-                while class_stack and ((class_stack[-1][0])%4) >= indent_len:
+                while class_stack and ((class_stack[-1][0]) % 4) >= indent_len:
                     class_stack.pop()
 
                 # if there are classes in the stack, the function is a method of the last class in the stack; otherwise, it is a standalone function
@@ -70,9 +80,46 @@ def get_function_names(filename:str="help_call.py", display:bool=False):
     return results
 
 
-if __name__ == "__main__":
-    print("Display = True")
-    _ = get_function_names(display=True)
+def _load_func(path_:str, filename: str, func_name: str):
+    """
+    Load a function from a given file.
 
-    print("\nDisplay = False")
-    print(f"Printing the returned names: {get_function_names()}")
+    Args:
+        path_ (str): The absolute path to the python file.
+        filename (str): The name of the python file.
+        func_name (str): The name of the function to load.
+    """
+    if not filename or path_ or func_name:
+        return
+
+    spec = importlib.util.spec_from_file_location(filename, path_)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    return getattr(module, func_name)
+
+
+def print_docstring(
+    filename: str, func_name: str = "get_function_names"
+):
+    """
+    Print the docstring of a function from a given file.
+
+    Args:
+        filename (str): The path to the python file.
+        func_name (str): The name of the function to print the docstring for.
+    """
+    f = _load_func(path_=os.path.abspath(filename), filename=filename, func_name=func_name)
+    print(f.__doc__)
+
+
+def tests():
+    filename = "HelperFunctions\\help_call.py"
+    print("Display = True")
+    _ = get_function_names(filename=filename, display=True)
+
+    print_docstring(filename=filename)
+
+
+if __name__ == "__main__":
+    tests()

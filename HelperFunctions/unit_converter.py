@@ -63,3 +63,22 @@ class UnitConverter:
     @staticmethod
     def c_to_f(c: float) -> float:
         return (c * (9/5)) + 32
+
+
+
+def tests():
+    uc = UnitConverter
+    print(uc.lb_to_kg(10))
+    print(uc.kg_to_lb(10))
+    print(uc.mmhg_to_kpa(10))
+    print(uc.kpa_to_mmhg(10))
+    print(uc.ft_to_m(10))
+    print(uc.m_to_ft(10))
+    print(uc.kcal_to_kj(10))
+    print(uc.kj_to_kcal(10))
+    print(uc.f_to_c(10))
+    print(uc.c_to_f(10))
+
+
+if __name__ == "__main__":
+    tests()
