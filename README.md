@@ -14,7 +14,6 @@ A lightweight collection of reusable Python helper modules for console applicati
 - Print function docstrings from Python modules.
 - Perform arithmetic, fraction, root, rounding, and trigonometric operations.
 - Convert common mass, pressure, length, energy, and temperature units.
-- Run the included module-level test functions from one script.
 
 ## Requirements
 
@@ -201,25 +200,6 @@ The `UnitConverter` class supplies static conversion methods.
 | Energy | `kcal_to_kj`, `kj_to_kcal` |
 | Temperature | `f_to_c`, `c_to_f` |
 
-### `testings.py`
-
-Runs the test functions defined in the package modules.
-
-From the directory containing the `HelperFunctions` folder, run:
-
-```bash
-python -m HelperFunctions.testings
-```
-
-To include the intentional exception logging test:
-
-```python
-from HelperFunctions.testings import main
-
-main(exceptions_too=True)
-```
-
-Some tests require interactive console input and are disabled in the combined test runner.
 
 ## Package Exports
 
@@ -246,16 +226,13 @@ HelperFunctions/
 ├── helpers_and_menu.py
 ├── math_func.py
 ├── safe_input.py
-├── testings.py
 ├── unit_converter.py
 └── README.md
 ```
 
 ## Current Limitations
 
-- The project is not yet installable through `pip`.
-- Tests are demonstration functions rather than a formal automated test suite.
-- Some functions use internal-style names beginning with `_` despite being used by other code.
+- The project is not yet installable through `pip`..
 - Console clearing depends on ANSI escape-sequence support.
 - Trigonometric calculations use custom approximations and may not match the precision or edge-case handling of Python's `math` module.
 - `unit_converter.py` is marked as work in progress.
@@ -265,7 +242,6 @@ HelperFunctions/
 When extending the package:
 
 1. Add type hints and a docstring to public functions.
-2. Add or update tests for changed behavior.
 3. Keep imports compatible with package execution.
 4. Avoid committing generated files and IDE metadata.
 5. Update this README when a public interface changes.
