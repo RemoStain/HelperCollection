@@ -251,18 +251,6 @@ HelperFunctions/
 └── README.md
 ```
 
-Generated folders such as `.vs/` and `__pycache__/` should normally be excluded from version control.
-
-Suggested `.gitignore` entries:
-
-```gitignore
-__pycache__/
-*.py[cod]
-.vs/
-traceback.txt
-log.txt
-```
-
 ## Current Limitations
 
 - The project is not yet installable through `pip`.
