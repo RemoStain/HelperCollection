@@ -220,14 +220,14 @@ from HelperFunctions import (
 
 ```text
 HelperFunctions/
-├── __init__.py
-├── exception_logging.py
-├── help_call.py
-├── helpers_and_menu.py
-├── math_func.py
-├── safe_input.py
-├── unit_converter.py
-└── README.md
+├── tests/
+│   ├── conftest.py
+│   ├── test_exception_logging.py
+│   ├── test_help_call.py
+│   ├── test_helpers_and_menu.py
+│   ├── test_math_func.py
+│   ├── test_safe_input.py
+│   └── test_unit_converter.py
 ```
 
 ## Current Limitations
@@ -243,7 +243,6 @@ When extending the package:
 
 1. Add type hints and a docstring to public functions.
 3. Keep imports compatible with package execution.
-4. Avoid committing generated files and IDE metadata.
 5. Update this README when a public interface changes.
 
 ## License
