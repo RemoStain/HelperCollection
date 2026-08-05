@@ -3,7 +3,7 @@ import os
 import importlib.util
 
 
-def get_function_names(filename: str, display: bool = False):
+def get_function_names(filename: str, display: bool = False) -> list[str]:
     """
     Print all the python functions in a given file.
     Defaults to itself if no filename is provided.
@@ -80,7 +80,7 @@ def get_function_names(filename: str, display: bool = False):
     return results
 
 
-def load_func(path_:str, filename: str, func_name: str):
+def load_func(path_:str, filename: str, func_name: str) -> None:
     """
     Load a function from a given file.
 
@@ -101,7 +101,7 @@ def load_func(path_:str, filename: str, func_name: str):
 
 def print_docstring(
     filename: str, func_name: str = "get_function_names"
-):
+) -> None:
     """
     Print the docstring of a function from a given file.
 

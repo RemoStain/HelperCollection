@@ -1,6 +1,6 @@
 from getpass import getpass
 from types import NoneType
-def safe_input(expected_type:type, message:str=None, default=None, is_password:bool=False, feedback:bool=False):
+def safe_input(expected_type:type, message:str=None, default=None, is_password:bool=False, feedback:bool=False) -> any:
     """
     Prompt the user for input and safely convert it to the given type.
     If default is not set, the program will loop until a valid response is given.

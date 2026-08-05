@@ -18,30 +18,29 @@ A lightweight collection of reusable Python helper modules for console applicati
 ## Requirements
 
 - Python 3.10 or newer
-- No third-party dependencies
+- No runtime third-party dependencies
 
-The package currently uses only modules from the Python standard library.
+Development tools are installed separately through the package's optional development dependencies.
 
 ## Installation
 
-This project does not currently include packaging metadata such as `pyproject.toml` or `setup.py`. Place the `helper_functions` directory inside your project, or beside the script that will import it.
+Clone the repository and install the package from the project root:
 
-Example structure:
-
-```text
-my_project/
-├── helper_functions/
-│   ├── __init__.py
-│   ├── exception_logging.py
-│   ├── help_call.py
-│   ├── helpers_and_menu.py
-│   ├── math_func.py
-│   ├── safe_input.py
-│   └── unit_converter.py
-└── main.py
+```powershell
+git clone https://github.com/RemoStain/HelperCollection.git
+cd HelperCollection
+python -m pip install .
 ```
 
-Then import the required module or function:
+For local development, install the package in editable mode with the testing and build tools:
+
+```powershell
+python -m pip install -e ".[dev]"
+```
+
+Editable installation allows changes made inside `helper_functions/` to be used immediately without reinstalling the package.
+
+After installation, import from the package normally:
 
 ```python
 from helper_functions.safe_input import safe_input
@@ -200,7 +199,6 @@ The `UnitConverter` class supplies static conversion methods.
 | Energy | `kcal_to_kj`, `kj_to_kcal` |
 | Temperature | `f_to_c`, `c_to_f` |
 
-
 ## Package Exports
 
 The package's `__init__.py` exposes these modules:
@@ -219,12 +217,7 @@ from helper_functions import (
 ## Project Structure
 
 ```text
-
 helper_functions/
-├── requirements-dev.txt
-├── README.md
-├── .gitignore
-│
 ├── helper_functions/
 │   ├── __init__.py
 │   ├── exception_logging.py
@@ -233,21 +226,96 @@ helper_functions/
 │   ├── math_func.py
 │   ├── safe_input.py
 │   └── unit_converter.py
-│
-└── tests/
-    ├── conftest.py
-    ├── test_exception_logging.py
-    ├── test_help_call.py
-    ├── test_helpers_and_menu.py
-    ├── test_math_func.py
-    ├── test_package.py
-    ├── test_safe_input.py
-    └── test_unit_converter.py
+├── tests/
+│   ├── conftest.py
+│   ├── test_exception_logging.py
+│   ├── test_help_call.py
+│   ├── test_helpers_and_menu.py
+│   ├── test_math_func.py
+│   ├── test_package.py
+│   ├── test_safe_input.py
+│   └── test_unit_converter.py
+├── .gitignore
+├── pyproject.toml
+├── README.md
+└── requirements-dev.txt
 ```
+
+## Testing
+
+The project includes a pytest test suite covering package imports and the public behavior of each module.
+
+Install the package with its development dependencies before running the tests:
+
+```powershell
+python -m pip install -e ".[dev]"
+```
+
+Run the full suite from the project root:
+
+```powershell
+python -m pytest
+```
+
+Run a single test module:
+
+```powershell
+python -m pytest tests/test_safe_input.py
+```
+
+Run a specific test:
+
+```powershell
+python -m pytest tests/test_math_func.py::test_name
+```
+
+Use verbose output:
+
+```powershell
+python -m pytest -v
+```
+
+The test files are organized by module:
+
+| Test file | Coverage area |
+|---|---|
+| `test_package.py` | Package imports and exported modules |
+| `test_exception_logging.py` | Exception logging behavior |
+| `test_help_call.py` | Source inspection and docstring helpers |
+| `test_helpers_and_menu.py` | Menu and validation helpers |
+| `test_math_func.py` | Arithmetic, fractions, roots, rounding, and trigonometry |
+| `test_safe_input.py` | Input conversion, defaults, booleans, and interruption handling |
+| `test_unit_converter.py` | Unit conversion methods |
+
+`tests/conftest.py` contains shared pytest fixtures and test configuration. Add shared setup there only when it is used by multiple test modules.
+
+When adding or changing a public function:
+
+1. Add or update the matching tests.
+2. Run the full test suite.
+3. Confirm the package can still be imported after installation.
+4. Update this README when usage or public behavior changes.
+
+## Building
+
+Install the build tool through the development dependencies, then build from the project root:
+
+```powershell
+python -m build
+```
+
+The generated distributions are written to `dist/`:
+
+```text
+dist/
+├── helper_functions-<version>-py3-none-any.whl
+└── helper_functions-<version>.tar.gz
+```
+
+The `build/`, `dist/`, and `*.egg-info/` directories are generated files and should not be committed.
 
 ## Current Limitations
 
-- The project is not yet installable through `pip`..
 - Console clearing depends on ANSI escape-sequence support.
 - Trigonometric calculations use custom approximations and may not match the precision or edge-case handling of Python's `math` module.
 - `unit_converter.py` is marked as work in progress.
@@ -256,10 +324,12 @@ helper_functions/
 
 When extending the package:
 
-1. Add type hints and a docstring to public functions.
-3. Keep imports compatible with package execution.
+1. Keep imports compatible with installed package usage.
+2. Add or update tests for public behavior.
+3. Run `python -m pytest` before committing changes.
+4. Run `python -m build` before creating a release.
 5. Update this README when a public interface changes.
 
 ## License
 
-No license has been specified. Add a `LICENSE` file and replace this section with the selected license terms before distributing the project.
+No license has been specified. 

@@ -229,7 +229,7 @@ def factorial(num: int) -> int:
 
 # ----- Fractions Functions -----
 # simplify fractions
-def reduce_fraction(numerator: int, denominator: int):
+def reduce_fraction(numerator: int, denominator: int) -> tuple[int, int]:
     """
     Reduce a fraction to its simplest form and return the result as a tuple of (numerator, denominator).
 
@@ -282,7 +282,17 @@ def decimal_to_frac(num: float) -> tuple[int, int]:
 
 
 #improper fraction to proper fraction as tuple of whole, num, and denom
-def improper_to_proper_frac(numerator:float = 0, denominator:float = 1):
+def improper_to_proper_frac(numerator:float = 0, denominator:float = 1) -> tuple[int, int, int]:
+    """
+    Convert an improper fraction to a proper fraction and return the result as a tuple of (whole, numerator, denominator).
+
+    Args:
+        numerator: float: The numerator of the improper fraction.
+        denominator: float: The denominator of the improper fraction.
+
+    Returns:
+        tuple[int, int, int]: The proper fraction as a tuple of (whole, numerator, denominator).
+    """
     whole = 0
     if not denominator:
         return 0, 0, 0
@@ -306,7 +316,18 @@ def improper_to_proper_frac(numerator:float = 0, denominator:float = 1):
 
 
 # proper to improper as tuple of num, and denom,
-def proper_to_improper_frac(whole:int=0, numerator:float = 0, denominator:float = 1):
+def proper_to_improper_frac(whole:int=0, numerator:float = 0, denominator:float = 1) -> tuple[int, int, int]:
+    """
+    Convert a proper fraction to an improper fraction and return the result as a tuple of (numerator, denominator).
+
+    Args:
+        whole: int: The whole number part of the proper fraction.
+        numerator: float: The numerator of the proper fraction.
+        denominator: float: The denominator of the proper fraction.
+
+    Returns:
+        tuple[int, int]: The improper fraction as a tuple of (numerator, denominator).
+    """
     if not denominator:
         return 0, 0
     if not whole:
@@ -465,6 +486,15 @@ class TrigFunctions:
 
     @staticmethod
     def _sin_radians(x: int | float) -> float:
+        """
+        Calculate the sine of an angle in radians using the Taylor series expansion.
+
+        Args:
+            x: int | float: The angle in radians.
+
+        Returns:
+            float: The sine of the angle.
+        """
         term = float(x)
         result = term
 
@@ -476,6 +506,15 @@ class TrigFunctions:
 
     @staticmethod
     def _cos_radians(x: int | float) -> float:
+        """
+        Calculate the cosine of an angle in radians using the Taylor series expansion.
+
+        Args:
+            x: int | float: The angle in radians.
+
+        Returns:
+            float: The cosine of the angle.
+        """
         term = 1.0
         result = term
 
@@ -618,6 +657,15 @@ class TrigFunctions:
 # ----- Misc Functions -----
 # Divide and return result as int with remainder
 def div_with_modulo(*nums:float) -> tuple[int, int]:
+    """
+    Divide as many numbers as are given and return the quotient and remainder as a tuple of (quotient, remainder).
+
+    Args:
+        *nums: float: The numbers to divide.
+
+    Returns:
+        tuple[int, int]: The quotient and remainder as a tuple of (quotient, remainder).
+    """
 
     if not nums:
         return 0 
