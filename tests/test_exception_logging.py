@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 from unittest.mock import Mock
 
-from HelperFunctions import exception_logging
+from helper_functions import exception_logging
 
 
 def _captured_exception() -> Exception:

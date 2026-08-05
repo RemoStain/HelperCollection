@@ -1,4 +1,4 @@
-# HelperFunctions
+# helper_functions
 
 A lightweight collection of reusable Python helper modules for console applications, mathematical operations, exception logging, source-code inspection, input validation, and unit conversion.
 
@@ -24,14 +24,13 @@ The package currently uses only modules from the Python standard library.
 
 ## Installation
 
-This project does not currently include packaging metadata such as `pyproject.toml` or `setup.py`. Place the `HelperFunctions` directory inside your project, or beside the script that will import it.
+This project does not currently include packaging metadata such as `pyproject.toml` or `setup.py`. Place the `helper_functions` directory inside your project, or beside the script that will import it.
 
 Example structure:
 
 ```text
 my_project/
-├── HelperFunctions/
-│   │    ├── tests/
+├── helper_functions/
 │   ├── __init__.py
 │   ├── exception_logging.py
 │   ├── help_call.py
@@ -45,8 +44,8 @@ my_project/
 Then import the required module or function:
 
 ```python
-from HelperFunctions.safe_input import safe_input
-from HelperFunctions.unit_converter import UnitConverter
+from helper_functions.safe_input import safe_input
+from helper_functions.unit_converter import UnitConverter
 ```
 
 ## Quick Start
@@ -54,7 +53,7 @@ from HelperFunctions.unit_converter import UnitConverter
 ### Safe console input
 
 ```python
-from HelperFunctions.safe_input import safe_input
+from helper_functions.safe_input import safe_input
 
 age = safe_input(
     expected_type=int,
@@ -70,7 +69,7 @@ Boolean input recognizes values such as `true`, `false`, `yes`, `no`, `1`, and `
 ### Unit conversion
 
 ```python
-from HelperFunctions.unit_converter import UnitConverter
+from helper_functions.unit_converter import UnitConverter
 
 kilograms = UnitConverter.lb_to_kg(10)
 celsius = UnitConverter.f_to_c(68)
@@ -82,7 +81,7 @@ print(celsius)
 ### Mathematical helpers
 
 ```python
-from HelperFunctions.math_func import add_all, decimal_to_frac, TrigFunctions
+from helper_functions.math_func import add_all, decimal_to_frac, TrigFunctions
 
 print(add_all(2, 4, 6))
 print(decimal_to_frac(0.75))
@@ -94,7 +93,7 @@ Trigonometric functions accept angles in degrees.
 ### Exception logging
 
 ```python
-from HelperFunctions.exception_logging import log_exception
+from helper_functions.exception_logging import log_exception
 
 try:
     result = 10 / 0
@@ -107,7 +106,7 @@ Depending on the selected mode, exception details may be written to `traceback.t
 ### Inspecting a Python file
 
 ```python
-from HelperFunctions.help_call import get_function_names
+from helper_functions.help_call import get_function_names
 
 names = get_function_names("example.py", display=True)
 print(names)
@@ -207,7 +206,7 @@ The `UnitConverter` class supplies static conversion methods.
 The package's `__init__.py` exposes these modules:
 
 ```python
-from HelperFunctions import (
+from helper_functions import (
     exception_logging,
     helpers_and_menu,
     help_call,
@@ -220,15 +219,30 @@ from HelperFunctions import (
 ## Project Structure
 
 ```text
-HelperFunctions/
-├── tests/
-│   ├── conftest.py
-│   ├── test_exception_logging.py
-│   ├── test_help_call.py
-│   ├── test_helpers_and_menu.py
-│   ├── test_math_func.py
-│   ├── test_safe_input.py
-│   └── test_unit_converter.py
+
+helper_functions/
+├── requirements-dev.txt
+├── README.md
+├── .gitignore
+│
+├── helper_functions/
+│   ├── __init__.py
+│   ├── exception_logging.py
+│   ├── help_call.py
+│   ├── helpers_and_menu.py
+│   ├── math_func.py
+│   ├── safe_input.py
+│   └── unit_converter.py
+│
+└── tests/
+    ├── conftest.py
+    ├── test_exception_logging.py
+    ├── test_help_call.py
+    ├── test_helpers_and_menu.py
+    ├── test_math_func.py
+    ├── test_package.py
+    ├── test_safe_input.py
+    └── test_unit_converter.py
 ```
 
 ## Current Limitations

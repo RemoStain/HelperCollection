@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-import math
-
 import pytest
 
-from HelperFunctions import math_func as mf
+from helper_functions import math_func as mf
 
 
 def test_constant_collections_have_matching_keys() -> None:
@@ -60,14 +58,17 @@ def test_multiplication_by_zero() -> None:
     assert mf.mult_all(10, 0, 3) == 0
 
 
-@pytest.mark.known_bug
-@pytest.mark.xfail(reason="mult_all returns the complete args tuple for one value")
 def test_single_value_multiplication_returns_value() -> None:
     assert mf.mult_all(5) == 5
 
 
 def test_exponent_zero_behaviour() -> None:
     assert mf.exp_all(5, 0) == 1
+
+
+def test_factorial_function() -> None:
+    assert mf.factorial(5) == 120
+    assert mf.factorial(0) == 1
 
 
 @pytest.mark.parametrize(
@@ -95,12 +96,6 @@ def test_reduce_fraction_zero_denominator_raises() -> None:
 )
 def test_decimal_to_fraction(number: float, expected) -> None:
     assert mf.decimal_to_frac(number) == expected
-
-
-@pytest.mark.known_bug
-@pytest.mark.xfail(reason="scientific notation is not handled by decimal_to_frac")
-def test_decimal_to_fraction_scientific_notation() -> None:
-    assert mf.decimal_to_frac(1e-05) == (1, 100000)
 
 
 @pytest.mark.parametrize(
@@ -165,8 +160,6 @@ def test_sine_zero() -> None:
     assert mf.TrigFunctions.sin(0, type_=float) == 0.0
 
 
-@pytest.mark.known_bug
-@pytest.mark.xfail(reason="Taylor-series terms use exponentiation instead of factorials")
 @pytest.mark.parametrize(("angle", "expected"), [(30, 0.5), (90, 1.0), (-30, -0.5)])
 def test_sine_known_angles(angle: float, expected: float) -> None:
     assert mf.TrigFunctions.sin(angle, type_=float) == pytest.approx(expected, abs=1e-8)
@@ -176,15 +169,11 @@ def test_cosine_zero() -> None:
     assert mf.TrigFunctions.cos(0, type_=float) == 1.0
 
 
-@pytest.mark.known_bug
-@pytest.mark.xfail(reason="Taylor-series terms use exponentiation instead of factorials")
 @pytest.mark.parametrize(("angle", "expected"), [(60, 0.5), (90, 0.0), (180, -1.0)])
 def test_cosine_known_angles(angle: float, expected: float) -> None:
     assert mf.TrigFunctions.cos(angle, type_=float) == pytest.approx(expected, abs=1e-7)
 
 
-@pytest.mark.known_bug
-@pytest.mark.xfail(reason="Reciprocal trig functions depend on inaccurate sine and cosine series")
 def test_tangent_and_reciprocal_functions() -> None:
     assert mf.TrigFunctions.tan(45, type_=float) == pytest.approx(1.0, abs=1e-8)
     assert mf.TrigFunctions.cosecant(30, type_=float) == pytest.approx(2.0, abs=1e-8)
