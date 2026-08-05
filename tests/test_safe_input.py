@@ -4,7 +4,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from HelperFunctions import safe_input as module
+from helper_functions import safe_input as module
 
 
 @pytest.mark.parametrize(

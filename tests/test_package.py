@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-import HelperFunctions
+import helper_functions
 
 
 def test_package_exports_expected_modules() -> None:
-    assert HelperFunctions.__all__ == [
+    assert helper_functions.__all__ == [
         "exception_logging",
         "helpers_and_menu",
         "help_call",
@@ -15,5 +15,5 @@ def test_package_exports_expected_modules() -> None:
 
 
 def test_exported_modules_are_importable_attributes() -> None:
-    for name in HelperFunctions.__all__:
-        assert getattr(HelperFunctions, name).__name__.endswith(name)
+    for name in helper_functions.__all__:
+        assert getattr(helper_functions, name).__name__.endswith(name)

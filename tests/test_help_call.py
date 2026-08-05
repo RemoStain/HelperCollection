@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from HelperFunctions import help_call
+from helper_functions import help_call
 
 
 def test_get_function_names_finds_functions_and_methods(sample_module: Path) -> None:
@@ -28,10 +28,8 @@ def test_get_function_names_missing_file_raises(tmp_path: Path) -> None:
         help_call.get_function_names(str(tmp_path / "missing.py"))
 
 
-@pytest.mark.known_bug
-@pytest.mark.xfail(reason="_load_func has an inverted guard and always returns None")
 def test_load_func_loads_named_function(sample_module: Path) -> None:
-    loaded = help_call._load_func(
+    loaded = help_call.load_func(
         path_=str(sample_module),
         filename=sample_module.stem,
         func_name="standalone",
@@ -39,8 +37,6 @@ def test_load_func_loads_named_function(sample_module: Path) -> None:
     assert loaded() == "standalone"
 
 
-@pytest.mark.known_bug
-@pytest.mark.xfail(reason="print_docstring depends on the broken _load_func helper")
 def test_print_docstring(sample_module: Path, capsys) -> None:
     help_call.print_docstring(str(sample_module), "standalone")
     assert capsys.readouterr().out.strip() == "Standalone documentation."

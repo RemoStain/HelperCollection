@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from HelperFunctions.unit_converter import UnitConverter
+from helper_functions.unit_converter import UnitConverter
 
 
 @pytest.mark.parametrize(
