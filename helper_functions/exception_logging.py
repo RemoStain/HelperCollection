@@ -16,7 +16,7 @@ def log_exception(e: Exception, verbose: bool = False) -> None:
     """
     # Set up logging configuration
     logging.basicConfig(
-        filename="traceback.txt",
+        filename="./log.txt",
         level=logging.ERROR,
         format="%(asctime)s - %(levelname)s - %(message)s",
     )

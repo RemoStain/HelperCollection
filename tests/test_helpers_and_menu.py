@@ -26,7 +26,7 @@ def test_cls_prints_ansi_clear_sequence(capsys) -> None:
 
 @pytest.mark.parametrize(
     ("number", "expected"),
-    [(1, "-----------"), (9, "-----------"), (10, "----------"), (999, "---------")],
+    [(1, "-----------"), (9, "-----------"), (10, "----------"), (999, "---------"), (999999999999, "An error occurred: too many items"), (1.4, "---------")],
 )
 def test_generate_dashes_for_menu_numbers(number: int, expected: str) -> None:
     assert helpers.generate_dashes(number) == expected

@@ -11,6 +11,7 @@ def test_package_exports_expected_modules() -> None:
         "math_func",
         "safe_input",
         "unit_converter",
+        # "complex_math",
     ]
 
 

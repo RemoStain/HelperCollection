@@ -88,6 +88,8 @@ def generate_dashes(n: int = 0, title: bool = False) -> str:
         ]
         # the number and dashes should add up to 12 characters
         nn = len(str(n))
+        if nn > len(possible_dashes):
+            return "An error occurred: too many items"
         dashes = possible_dashes[nn - 1]
     return dashes
 

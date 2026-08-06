@@ -379,9 +379,11 @@ def rounding(
         p = 10**decimal
         rounded_num = (num // (1 / p)) / p
 
+    # rounds naturally
     else:
         rounded_num = round(num, decimal)
 
+    # return the rounded value in the designated type
     return type_(rounded_num)
 
 
@@ -697,4 +699,5 @@ def apply_discount(number:float=0, discount:float=None) -> float:
     if discount <= 0:
         return number
     return number - (number * (discount / 100))
+
 
